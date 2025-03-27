@@ -9,6 +9,9 @@ Author: Martin Wong @ [Autonomous Econ](https://autonomousecon.substack.com/)<br
 This is a demo site built using Quarto and Python. **Check out<br>the 
 full Substack post [here](https://open.substack.com/pub/autonomousecon/p/how-the-pros-showcase-their-data?r=2o1mc&utm_campaign=post&utm_medium=web).**
 
+::: {.panel-tabset .nav-pills}
+
+## Financial indicators
 ```{python}
 #| echo: false
 from datetime import datetime
@@ -96,6 +99,6 @@ fig = plot_stock_timeseries_interactive(data_rebase)
 # Step 4: Display the plot
 fig.show()
 ```
-
+:::
 
 
