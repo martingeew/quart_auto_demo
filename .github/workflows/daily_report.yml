@@ -33,6 +33,15 @@ jobs:
       - name: Run extract_data.py
         run: python extract_data.py
 
+      # Step 5: Configure Git and commit changes to data
+      - name: Configure Git and Push Changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/*.csv
+          git commit -m "Update stock data and plot $(date +'%Y-%m-%d')"
+          git push
+        
       # Step 6: Set up Quarto
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -40,17 +49,15 @@ jobs:
       # Step 7: Render Quarto Project
       - name: Render Quarto Project
         run: quarto render
-
-      # Step 8: Configure Git and commit changes
+      
+      # Step 8: Configure Git and commit changes to docs folder
       - name: Configure Git and Push Changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/*.csv
           git add docs/*  # Add the rendered Quarto site in docs folder
-          git commit -m "Update stock data and plot $(date +'%Y-%m-%d')"
           git push
-
+        
       # Step 9: Upload CSV as artifacts (as backup)
       - name: Upload CSV and plot as artifacts
         uses: actions/upload-artifact@v4
