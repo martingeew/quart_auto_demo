@@ -87,7 +87,7 @@ def plot_stock_timeseries_interactive(df):
 # Load latest file
 timestamp = datetime.now().strftime("%Y-%m-%d")
 data_rebase = pd.read_csv(
-    f"data/stock_data_{timestamp}.csv", index_col=0, parse_dates=True
+    f"data/processed/stock_data_rebased_{timestamp}.csv", index_col=0, parse_dates=True
 )
 
 # Step 3: Generate interactive plot
