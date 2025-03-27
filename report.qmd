@@ -11,7 +11,7 @@ full Substack post [here](https://open.substack.com/pub/autonomousecon/p/how-the
 
 ::: {.panel-tabset .nav-pills}
 
-## Financial indicators
+## Daily indicators
 ```{python}
 #| echo: false
 from datetime import datetime
@@ -98,6 +98,41 @@ fig = plot_stock_timeseries_interactive(data_rebase)
 
 # Step 4: Display the plot
 fig.show()
+```
+
+## Weekly indicators
+```{python}
+from datetime import datetime
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load latest file
+timestamp = datetime.now().strftime("%Y-%m-%d")
+df = pd.read_csv(
+    f"data/raw/gdpnow_data_{timestamp}.csv", index_col=0, parse_dates=True
+)
+
+# Create a seaborn time series plot with a white grid theme using an ax object
+sns.set_theme(style="whitegrid")  # White grid background
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.lineplot(data=df, x=df.index, y="Ggdpnow", linewidth=2.5, color="blue", ax=ax)
+
+# Customize the plot
+ax.set_title("US GDP Nowcast (Seasonally Adjusted Annual Rate)", fontsize=16)
+ax.set_xlabel("", fontsize=12)
+ax.set_ylabel("", fontsize=12)
+ax.grid(visible=True, linestyle="--", alpha=0.6)
+ax.spines["left"].set_color("none")
+ax.spines["bottom"].set_color("none")
+ax.spines["right"].set_color("none")
+ax.spines["top"].set_color("none")
+# Add a horizontal line at y=0
+ax.axhline(0, color="gray", linestyle="--", linewidth=1.5, alpha=0.8)
+
+# Show the plot
+plt.tight_layout()
+plt.show()
 ```
 :::
 
