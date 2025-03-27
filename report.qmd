@@ -1,5 +1,5 @@
 ---
-title: "New Zealand Housing Demographics"
+title: "Top Tech Stocks Report"
 format:
   html:
     code-fold: true
@@ -9,6 +9,14 @@ Author: Martin Wong @ [Autonomous Econ](https://autonomousecon.substack.com/)<br
 This is a demo site built using Quarto and Python. **Check out<br>the 
 full Substack post [here](https://open.substack.com/pub/autonomousecon/p/how-the-pros-showcase-their-data?r=2o1mc&utm_campaign=post&utm_medium=web).**
 
+```{python}
+#| echo: false
+from datetime import datetime
+
+# Display last update time
+current_time = datetime.now().strftime("%d-%m-%Y %H:%M")
+print(f"Last updated: {current_time}")
+```
 
 ```{python}
 #| label: fig-Tech-Stocks
