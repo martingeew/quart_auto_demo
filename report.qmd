@@ -57,7 +57,7 @@ def plot_stock_timeseries_interactive(df):
         plot_bgcolor="#282a36",
         paper_bgcolor="#282a36",
         title=dict(
-            text="Top tech stocks indexed to 2023-01-01=100",
+            text="Tech stocks indexed to 2023-01-01=100",
             font=dict(size=20, color="white"),
             x=0.01,
             xanchor="left",
