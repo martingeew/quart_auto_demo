@@ -29,7 +29,7 @@ jobs:
       # Step 3: Install dependencies
       - name: Install dependencies
         run: |
-          pip install ffn pandas matplotlib plotly fredapi
+          pip install ffn pandas matplotlib plotly fredapi seaborn
           pip install jupyter notebook nbformat pyyaml ipykernel python-dotenv
 
       # Step 4: Run the Python script to generate CSV
