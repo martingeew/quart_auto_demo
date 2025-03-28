@@ -9,9 +9,37 @@ Author: Martin Wong @ [Autonomous Econ](https://autonomousecon.substack.com/)<br
 This is a demo site built using Quarto and Python. **Check out<br>the 
 full Substack post [here](https://open.substack.com/pub/autonomousecon/p/how-the-pros-showcase-their-data?r=2o1mc&utm_campaign=post&utm_medium=web).**
 
+```{python}
+#| echo: false
+from datetime import datetime
+
+# Display last update time
+current_time = datetime.now().strftime("%d-%m-%Y %H:%M")
+print(f"Last updated: {current_time}")
+```
+
 ::: {.panel-tabset .nav-pills}
 
 ## Daily indicators
+```{python}
+#| output: false
+#| echo: false
+import ffn
+from datetime import datetime
+
+# Retrieve data using ffn
+data = ffn.get("nvda,msft,googl,amzn,aapl,meta", start="2023-01-01")
+
+timestamp = datetime.now().strftime("%Y-%m-%d")
+data.to_csv(f"data/raw/stock_data_{timestamp}.csv")
+
+# Rebase data
+data_rebase = data.rebase()
+
+timestamp = datetime.now().strftime("%Y-%m-%d")
+data_rebase.to_csv(f"data/processed/stock_data_rebased_{timestamp}.csv")
+```
+
 ```{python}
 #| label: fig-Tech-Stocks
 #| fig-cap: "Top tech stocks indexed"
@@ -78,38 +106,45 @@ def plot_stock_timeseries_interactive(df):
     # Return the figure
     return fig
 
-# Load latest file
-timestamp = datetime.now().strftime("%Y-%m-%d")
-data_rebase = pd.read_csv(
-    f"data/processed/stock_data_rebased_{timestamp}.csv", index_col=0, parse_dates=True
-)
-
 # Step 3: Generate interactive plot
 fig = plot_stock_timeseries_interactive(data_rebase)
 
 # Step 4: Display the plot
 fig.show()
 ```
-```{python}
-#| echo: false
-from datetime import datetime
-
-# Display last update time
-current_time = datetime.now().strftime("%d-%m-%Y %H:%M")
-print(f"Last updated: {current_time}")
-```
 
 ## Weekly indicators
+```{python}
+#| output: false
+#| echo: false
+from fredapi import Fred
+import pandas as pd
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
+
+FRED_API_KEY = os.getenv("FRED_API_KEY")
+if FRED_API_KEY is None:
+    raise ValueError("FRED_API_KEY environment variable not set")
+
+# Retrieve data
+fred = Fred(api_key=FRED_API_KEY)
+data = fred.get_series("GDPNOW", observation_start="2010-01-01")
+
+# Convert to df
+df = data.to_frame(name="Ggdpnow")
+
+# Save raw data as csv
+timestamp = datetime.now().strftime("%Y-%m-%d")
+df.to_csv(f"data/raw/gdpnow_data_{timestamp}.csv")
+```
 ```{python}
 from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-# Load latest file
-df = pd.read_csv(
-    f"data/raw/gdpnow_data_2025-03-27.csv", index_col=0, parse_dates=True
-)
 
 # Create a seaborn time series plot with a white grid theme using an ax object
 sns.set_theme(style="whitegrid")  # White grid background
@@ -133,5 +168,3 @@ plt.tight_layout()
 plt.show()
 ```
 :::
-
-
