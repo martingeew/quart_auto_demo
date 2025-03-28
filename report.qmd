@@ -107,9 +107,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load latest file
-timestamp = datetime.now().strftime("%Y-%m-%d")
 df = pd.read_csv(
-    f"data/raw/gdpnow_data_{timestamp}.csv", index_col=0, parse_dates=True
+    f"data/raw/gdpnow_data_2025-03-27.csv", index_col=0, parse_dates=True
 )
 
 # Create a seaborn time series plot with a white grid theme using an ax object
