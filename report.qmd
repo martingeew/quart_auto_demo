@@ -45,7 +45,6 @@ timestamp = datetime.now().strftime("%Y-%m-%d")
 data_rebase.to_csv(f"data/processed/stock_data_rebased_{timestamp}.csv")
 ```
 ```{python}
-#| label: fig-Tech-Stocks
 #| fig-cap: "Source: Yahoo Finance"
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -185,7 +184,6 @@ timestamp = datetime.now().strftime("%Y-%m-%d")
 df.to_csv(f"data/raw/gdpnow_data_{timestamp}.csv")
 ```
 ```{python}
-#| label: fig-GDP-Nowcast
 #| fig-cap: "Source: Atlanta Fed"
 from datetime import datetime
 import pandas as pd
