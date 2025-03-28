@@ -8,8 +8,8 @@ title-block-banner-color: "black"
 author: 
   name: "Martin Wong"
 date: today
-url: https://autonomousecon.substack.com/
 jupyter: python3
+include-after-body: "footer.html"
 ---
 This is a demo site built using Quarto and Python. **Check out<br>the 
 full Substack post [here](https://open.substack.com/pub/autonomousecon/p/how-the-pros-showcase-their-data?r=2o1mc&utm_campaign=post&utm_medium=web).**
