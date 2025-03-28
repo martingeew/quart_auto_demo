@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest # Linux operating system as runner environment
     permissions:
       contents: write     # Add permission to write to repository
+    
+    env:
+      FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
 
     steps:
       # Step 1: Check out the repository
@@ -26,23 +29,13 @@ jobs:
       # Step 3: Install dependencies
       - name: Install dependencies
         run: |
-          pip install ffn pandas matplotlib plotly seaborn
-          pip install jupyter notebook nbformat pyyaml ipykernel
+          pip install ffn pandas matplotlib plotly fredapi
+          pip install jupyter notebook nbformat pyyaml ipykernel python-dotenv
 
       # Step 4: Run the Python script to generate CSV
       - name: Run extract_data.py
         run: python extract_data.py
 
-      # Step 5: Configure Git and commit changes to data
-      - name: Configure Git and Push Changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/raw/*.csv
-          git add data/processed/*.csv
-          git commit -m "Update stock data $(date +'%Y-%m-%d')"
-          git push
-        
       # Step 6: Set up Quarto
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
@@ -50,19 +43,21 @@ jobs:
       # Step 7: Render Quarto Project
       - name: Render Quarto Project
         run: quarto render
-      
-      # Step 8: Configure Git and commit changes to docs folder
+
+      # Step 8: Configure Git and commit changes
       - name: Configure Git and Push Changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add docs/*  # Add the rendered Quarto site in docs folder
+          git commit -m "Update docs $(date +'%Y-%m-%d')"
           git push
-        
+
       # Step 9: Upload CSV as artifacts (as backup)
       - name: Upload CSV and plot as artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: stock-data-reports
+          name: data-files
           path: |
-            data/*.csv
+            data/raw/*.csv
+            data/processed/*.csv
