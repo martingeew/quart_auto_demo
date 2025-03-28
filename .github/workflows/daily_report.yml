@@ -26,7 +26,7 @@ jobs:
       # Step 3: Install dependencies
       - name: Install dependencies
         run: |
-          pip install ffn pandas matplotlib plotly
+          pip install ffn pandas matplotlib plotly seaborn
           pip install jupyter notebook nbformat pyyaml ipykernel
 
       # Step 4: Run the Python script to generate CSV
