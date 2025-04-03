@@ -32,19 +32,15 @@ jobs:
           pip install ffn pandas matplotlib plotly fredapi seaborn
           pip install jupyter notebook nbformat pyyaml ipykernel python-dotenv
 
-      # Step 4: Run the Python script to generate CSV
-      - name: Run extract_data.py
-        run: python extract_data.py
-
-      # Step 6: Set up Quarto
+      # Step 4: Set up Quarto
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      # Step 7: Render Quarto Project
+      # Step 5: Render Quarto Project
       - name: Render Quarto Project
         run: quarto render
 
-      # Step 8: Configure Git and commit changes
+      # Step 6: Configure Git and commit changes
       - name: Configure Git and Push Changes
         run: |
           git config --global user.name 'github-actions[bot]'
@@ -53,7 +49,7 @@ jobs:
           git commit -m "Update docs $(date +'%Y-%m-%d')"
           git push
 
-      # Step 9: Upload CSV as artifacts (as backup)
+      # Step 7: Upload CSV as artifacts (as backup)
       - name: Upload CSV and plot as artifacts
         uses: actions/upload-artifact@v4
         with:

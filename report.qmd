@@ -73,10 +73,8 @@ def plot_stock_timeseries_seaborn(df):
     ax.set_ylabel("", fontsize=12)
     ax.legend(fontsize=10, title_fontsize=12)
     ax.grid(visible=True, linestyle="--", alpha=0.6)
-    ax.spines["left"].set_color("none")
-    ax.spines["bottom"].set_color("none")
-    ax.spines["right"].set_color("none")
-    ax.spines["top"].set_color("none")
+    for spine in ax.spines.values():
+        spine.set_color("none")
 
     # Show the plot
     plt.tight_layout()
